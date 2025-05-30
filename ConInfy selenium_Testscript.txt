@@ -1,0 +1,186 @@
+package Test;
+
+import java.util.Iterator;
+import java.util.Set;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class Job {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		// open edge browser
+		System.setProperty("webdriver.edge.driver","./drivers/msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		
+		// navigating to url
+		driver.get("https://connectinfy.infosysapps.com/connectinfy/list");
+		Thread.sleep(3000);
+		
+		//maximize the window
+		driver.manage().window().maximize();
+		Thread.sleep(2000);
+		
+		//logging-in to registered account
+		driver.findElement(By.xpath("/html/body/div/form[1]/div/div/div[2]/div[1]/div/div/div/div/div/div[3]/div/div/div/div[2]/div/div/div[1]/div")).click();
+		Thread.sleep(3000);
+		
+		//getwindowhandle() returns id of single browser window
+		String windowID = driver.getWindowHandle();
+		System.out.println(windowID); //D4BEFC143E5C4AC2FC8D5570DF323115  //41C36FCD2D81267F4B60F5BEA0C8120C
+		
+		//click on pop-up
+		driver.findElement(By.xpath("/html[1]/body[1]/app-root[1]/div[1]/app-job-list[1]/div[1]/div[1]/div[1]/div[1]/div[1]/button[1]")).click();
+		Thread.sleep(3000);
+		
+		//click on job-listing filters
+		driver.findElement(By.xpath("/html/body/app-root/div/app-job-list/div/div[4]/div/span/button")).click();
+		Thread.sleep(2000);
+		
+		//choose company
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[1]/mat-chip-list/div/mat-chip[4]/span[2]")).click();
+		
+		//choose country
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[2]/mat-chip-list/div/mat-chip[19]/span[2]")).click();
+		Thread.sleep(1000);
+		
+		//selecting cities
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[3]/mat-chip-list/div/mat-chip[3]/span[2]")).click();
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[3]/mat-chip-list/div/mat-chip[1]/span[2]")).click();
+		Thread.sleep(1000);
+		
+		//selecting the units
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[4]/mat-chip-list/div/mat-chip[1]/span[2]")).click();
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[4]/mat-chip-list/div/mat-chip[10]/span[2]")).click();
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[4]/mat-chip-list/div/mat-chip[11]/span[2]")).click();
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[4]/mat-chip-list/div/mat-chip[12]/span[2]")).click();
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[4]/mat-chip-list/div/mat-chip[24]/span[2]")).click();
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[1]/div[2]/div/div[4]/mat-chip-list/div/mat-chip[28]/span[2]")).click();
+		
+		Thread.sleep(2000);
+		
+		//click on apply
+		driver.findElement(By.xpath("/html/body/div/div[2]/div/mat-dialog-container/app-filter-chips/div/div[2]/div/button[1]/span")).click();
+		Thread.sleep(2000);
+		
+		//clicking on one job profile
+		driver.findElement(By.id("jobList-container-job-div1Senior Consultant - Business Consulting (Life Sciences) (Healthcare)")).click();
+		Thread.sleep(2000);
+		
+		//scroll down till we find web element expected
+		
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		WebElement flag= driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/div[1]/mat-dialog-container[1]/app-job-description[1]/mat-card[2]/mat-card-content[1]/div[4]/div[1]/div[1]/button[1]/span[1]"));
+		js.executeScript("arguments[0].scrollIntoView();",flag);
+		Thread.sleep(2000);
+		
+		//click on refer now
+		driver.findElement(By.xpath("//span[contains(text(),'Refer Now')]")).click();
+		Thread.sleep(2000);
+		
+		//go back to home page
+		driver.findElement(By.id("referNow-container-img")).click();
+		Thread.sleep(2000);
+		
+		//scroll to full length
+		js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+		Thread.sleep(2000);
+		
+		//scroll up to full length
+		js.executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+		
+		//clearing up all the job filter applied
+		driver.findElement(By.xpath("/html/body/app-root/div/app-job-list/div/div[4]/div/span/button")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//span[normalize-space()='Clear All']")).click();
+		Thread.sleep(3000);
+		
+		//searching for units from search bar by accepting keys from keyboard
+		driver.findElement(By.xpath("//input[@id='jobList-container-mat-form-input']")).sendKeys("Infosys Validation Solutions");
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//img[@alt='image']")).click();
+		
+		//scroll down by pixel
+		js.executeScript("window.scrollTo(0, 900)");
+		Thread.sleep(4000);
+		
+		//scroll up to full length
+		js.executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+		Thread.sleep(2000);
+		
+		//clear up search bar
+		driver.findElement(By.xpath("//input[@id='jobList-container-mat-form-input']")).clear();
+		
+		// searching for automation testing jobs
+		driver.findElement(By.xpath("//input[@id='jobList-container-mat-form-input']")).sendKeys("Automation testing");
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//img[@alt='image']")).click();
+		
+		//clicking on one of the jobs-automation testing
+		driver.findElement(By.id("hotjobList-container-job-mat-card-contentIT Testing")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//span[contains(text(),'Refer Now')]")).click();
+		Thread.sleep(2000);
+		
+		//back to home page
+		driver.findElement(By.xpath("//img[@id='referNow-container-img']")).click();
+		Thread.sleep(2000);
+		
+		//visiting rewards section
+		driver.findElement(By.xpath("//div[contains(text(),'REWARDS')]")).click();
+		Thread.sleep(2000);
+		
+		//visiting to infosys-BPM India
+		driver.findElement(By.xpath("//mat-panel-title[contains(text(),'Infosys BPM – India')]")).click();
+		Thread.sleep(2000);
+		
+		//scroll-down 
+		js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+		Thread.sleep(2000);
+		
+		//scroll-up
+		js.executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+		Thread.sleep(2000);
+		
+		//visiting to about us section
+		driver.findElement(By.linkText("ABOUT US")).click();
+		Thread.sleep(2000); 
+		
+		//getwindowhandles() returns id of multiple browser windows
+		Set<String> windowIDs = driver.getWindowHandles();
+		
+		//capture ids - iterative method
+		Iterator<String> it = windowIDs.iterator(); //this from windowsIDs i use iterator method which will return iterator object of string type 
+		String parentWindowID = it.next(); // this it.next() will return parent window id 
+		String childWindowID = it.next(); // this it.next() will return child window id 
+		
+		System.out.println("Parent window ID:"+parentWindowID); //Parent window ID:41C36FCD2D81267F4B60F5BEA0C8120C
+		System.out.println("Child window ID:"+childWindowID); //Child window ID:3A286E8F1CB83CF1ED33A3B3028934CF
+		
+		//switch between two tabs using id's
+		driver.switchTo().window(parentWindowID);
+		System.out.println("Parent window title:"+driver.getTitle());//Parent window title:Connectinfy
+		
+		driver.switchTo().window(childWindowID);
+		System.out.println("Child window title:"+driver.getTitle());//Child window title:Infosys - Global Leader in Technology Services and Consulting
+		
+		//verify title
+		String act_title = driver.getTitle();
+		System.out.println(act_title);
+		
+		String desired_title = "Infosys - Global Leader in Technology Services and Consulting";
+		
+		
+		//closing the child window
+		if(act_title.equals(desired_title))
+		{
+			driver.close();
+		}
+		
+		//closing the browser
+		driver.quit();
+	}
+}
